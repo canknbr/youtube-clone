@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -20,6 +20,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import NotFoundScreen from '../screens/NotFoundScreen';
 
 import HomeScreen from '../screens/HomeScreen';
+import VideoScreen from '../screens/VideoScreen';
 import {
   RootStackParamList,
   RootTabParamList,
@@ -50,11 +51,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="VideoScreen">
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VideoScreen"
+        component={VideoScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="NotFound"
@@ -78,7 +86,11 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#fff',
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
       }}
     >
       <BottomTab.Screen
@@ -86,7 +98,9 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home" color={'white'} size={24} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -96,9 +110,3 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-}

@@ -5,7 +5,6 @@ export default StyleSheet.create({
     backgroundColor: '#141414',
     flex: 1,
     padding: 5,
-    flex: 1,
   },
   thumbnail: {
     width: '100%',
@@ -26,7 +25,7 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  videoCard: {},
+
   titleRow: {
     flexDirection: 'row',
     padding: 10,
