@@ -10,6 +10,7 @@ import React from 'react';
 import video from '../../assets/data/video.json';
 import videos from '../../assets/data/videos.json';
 import VideoListItem from '../../components/VideoListItem';
+import VideoPlayer from '../../components/VideoPlayer';
 import styles from './styles';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -35,7 +36,8 @@ const VideoScreen = () => {
   }
   return (
     <SafeAreaView style={styles.videoContainer}>
-      <Image source={{ uri: video.thumbnail }} style={styles.videoPlayer} />
+      <VideoPlayer videoURI={video.videoUrl} thumbnailURI={video.thumbnail} />
+      {/* <Image source={{ uri: video.thumbnail }} style={styles.videoPlayer} /> */}
       <View style={styles.videoInfoContainer}>
         <Text style={styles.tags}>{video.tags}</Text>
         <Text style={styles.title}>{video.title}</Text>
