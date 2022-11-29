@@ -130,7 +130,6 @@ const VideoScreen = () => {
           <Text style={{ color: 'white' }}>Comments 33</Text>
         </Pressable>
 
-      
         <BottomSheetModal
           ref={commentsSheetRef}
           snapPoints={['70%']}

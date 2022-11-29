@@ -3,7 +3,12 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { Entypo } from '@expo/vector-icons';
+import {
+  Foundation,
+  Ionicons,
+  AntDesign,
+  MaterialIcons,
+} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -21,6 +26,11 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 
 import HomeScreen from '../screens/HomeScreen';
 import VideoScreen from '../screens/VideoScreen';
+import ExploreScreen from '../screens/ExploreScreen';
+import AddScreen from '../screens/AddScreen';
+import SubscriptionsScreen from '../screens/SubscriptionsScreen';
+import LibraryScreen from '../screens/LibraryScreen';
+
 import {
   RootStackParamList,
   RootTabParamList,
@@ -91,15 +101,52 @@ function BottomTabNavigator() {
         tabBarLabelStyle: {
           fontSize: 12,
         },
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Home',
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={'white'} size={24} />
+            <Foundation name="home" color={'white'} size={24} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="compass-outline" color={'white'} size={24} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Add"
+        component={AddScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="pluscircleo" color={'white'} size={32} />
+          ),
+          tabBarLabel: () => null,
+        }}
+      />
+      <BottomTab.Screen
+        name="Subscriptions"
+        component={SubscriptionsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="subscriptions" color={'white'} size={24} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Library"
+        component={LibraryScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="video-collection" color={'white'} size={24} />
           ),
         }}
       />
