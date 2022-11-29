@@ -8,6 +8,8 @@ import {
   Ionicons,
   AntDesign,
   MaterialIcons,
+  Feather,
+  FontAwesome,
 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
@@ -17,8 +19,14 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
-
+import {
+  ColorSchemeName,
+  Image,
+  Pressable,
+  SafeAreaView,
+  View,
+} from 'react-native';
+import logo from '../assets/images/logo.png';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
@@ -101,7 +109,7 @@ function BottomTabNavigator() {
         tabBarLabelStyle: {
           fontSize: 12,
         },
-        headerShown: false,
+        header: () => <CustomHeader />,
       }}
     >
       <BottomTab.Screen
@@ -157,3 +165,37 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
+
+export const CustomHeader = () => {
+  return (
+    <SafeAreaView
+      style={{
+        backgroundColor: '#141414',
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 5,
+          margin: 10,
+        }}
+      >
+        <Image source={logo} style={{ width: 100, height: 22 }} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: 150,
+          }}
+        >
+          <Feather name="cast" size={24} color="white" />
+          <AntDesign name="bells" size={24} color="white" />
+          <AntDesign name="search1" size={24} color="white" />
+          <FontAwesome name="user-circle-o" size={24} color="white" />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};

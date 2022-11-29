@@ -5,6 +5,7 @@ export default StyleSheet.create({
     backgroundColor: '#141414',
     flex: 1,
     padding: 5,
+    marginVertical: 5,
   },
   thumbnail: {
     width: '100%',
