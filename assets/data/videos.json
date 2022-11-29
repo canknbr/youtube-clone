@@ -10,13 +10,13 @@
       "name": "İrmik Kedi",
       "image": "https://images.unsplash.com/photo-1529797228130-fe918ce6d915?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTN8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
     },
-    "views": 357000
+    "views": 35700000
   },
   {
     "id": "2",
     "createdAt": "2 months ago",
     "title": "🔴 Build the Uber clone in React Native (Tutorial for Beginners)",
-    "thumbnail": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/thumbnails/thumbnail2.jpeg",
+    "thumbnail": "https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dGh1bWJuYWlsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
     "videoUrl": "",
     "duration": 584,
     "user": {
@@ -39,7 +39,7 @@
     "views": 257000
   },
   {
-    "id": "3",
+    "id": "4",
     "createdAt": "2 months ago",
     "title": "My One Month Bitcoin Mining Journey",
     "thumbnail": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/thumbnails/thumbnail4.jpeg",
