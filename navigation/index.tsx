@@ -51,7 +51,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="VideoScreen">
+    <Stack.Navigator>
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}

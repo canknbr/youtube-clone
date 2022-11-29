@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import {
   View,
   Text,
@@ -5,114 +6,158 @@ import {
   SafeAreaView,
   ScrollView,
   FlatList,
+  Pressable,
 } from 'react-native';
-import React from 'react';
-import video from '../../assets/data/video.json';
-import videos from '../../assets/data/videos.json';
+import {
+  BottomSheetModalProvider,
+  BottomSheetModal,
+} from '@gorhom/bottom-sheet';
+import styles from './styles';
 import VideoListItem from '../../components/VideoListItem';
 import VideoPlayer from '../../components/VideoPlayer';
-import styles from './styles';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const comments = {
-  id: '1',
-  createdAt: '5 months ago',
-  comment: 'Cool video!',
-  user: {
-    name: 'Graham Stephan',
-    image:
-      'https://images.unsplash.com/photo-1529797228130-fe918ce6d915?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTN8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-  },
-  likes: 123,
-  dislikes: 2,
-  replies: 6,
-};
+import video from '../../assets/data/video.json';
+import videos from '../../assets/data/videos.json';
+
+import { AntDesign } from '@expo/vector-icons';
+
+import comments from '../../assets/data/comments.json';
+import VideoComments from '../../components/VideoComments';
+
 const VideoScreen = () => {
+  const commentsSheetRef = useRef<BottomSheetModal>(null);
+
   let viewsString = video.views.toString();
-  if (video.views > 1000000) {
-    viewsString = (video.views / 1000000).toFixed(1) + 'M';
-  } else if (video.views > 1000) {
-    viewsString = (video.views / 1000).toFixed() + 'K';
+  if (video.views > 1_000_000) {
+    viewsString = (video.views / 1_000_000).toFixed(1) + 'm';
+  } else if (video.views > 1_000) {
+    viewsString = (video.views / 1_000).toFixed(1) + 'k';
   }
+
+  const openComments = () => {
+    commentsSheetRef.current?.present();
+  };
+
   return (
-    <SafeAreaView style={styles.videoContainer}>
+    <View style={{ backgroundColor: '#141414', flex: 1 }}>
       <VideoPlayer videoURI={video.videoUrl} thumbnailURI={video.thumbnail} />
-      {/* <Image source={{ uri: video.thumbnail }} style={styles.videoPlayer} /> */}
-      <View style={styles.videoInfoContainer}>
-        <Text style={styles.tags}>{video.tags}</Text>
-        <Text style={styles.title}>{video.title}</Text>
-        <Text style={styles.subtitle}>
-          {video.user.name} {viewsString} {video.createdAt}
-        </Text>
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.actionListContainer}
-      >
-        <View style={styles.actionListItem}>
-          <AntDesign name="like1" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.likes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <AntDesign name="dislike2" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <AntDesign name="export" size={30} color="white" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <AntDesign name="download" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <MaterialCommunityIcons name="share" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <MaterialCommunityIcons name="share" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-        <View style={styles.actionListItem}>
-          <MaterialCommunityIcons name="share" size={30} color="lightgrey" />
-          <Text style={styles.actionText}>{video.dislikes}</Text>
-        </View>
-      </ScrollView>
-      <View style={styles.userInfoContainer}>
-        <Image style={styles.avatar} source={{ uri: video.user.image }} />
-        <View>
-          <Text style={styles.description}>{video.user.name}</Text>
-          <Text style={styles.description}>
-            {video.user.subscribers} subscribers
+
+      <View style={{ flex: 1 }}>
+        <View style={styles.videoInfoContainer}>
+          <Text style={styles.tags}>{video.tags}</Text>
+          <Text style={styles.title}>{video.title}</Text>
+          <Text style={styles.subtitle}>
+            {video.user.name} {viewsString} {video.createdAt}
           </Text>
         </View>
-        <Text style={styles.subscribe}>SUBSCRIBE</Text>
-      </View>
-      <View style={styles.commentContainer}>
-        <Image style={styles.avatar} source={{ uri: comments.user.image }} />
-        <View style={styles.comment}>
-          <Text style={styles.commentTitle}>{comments.user.name}</Text>
-          <Text numberOfLines={2} style={styles.commentText}>
-            {comments.comment}
+
+        <View style={styles.actionListContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.actionListItem}>
+              <AntDesign name="like1" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.likes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="dislike2" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="export" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="download" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="download" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="download" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+
+            <View style={styles.actionListItem}>
+              <AntDesign name="download" size={30} color="lightgrey" />
+              <Text style={styles.actionText}>{video.dislikes}</Text>
+            </View>
+          </ScrollView>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 10,
+            borderColor: '#3d3d3d',
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+          }}
+        >
+          <Image style={styles.avatar} source={{ uri: video.user.image }} />
+
+          <View style={{ marginHorizontal: 10, flex: 1 }}>
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+              {video.user.name}
+            </Text>
+            <Text style={{ color: 'grey', fontSize: 18 }}>
+              {video.user.subscribers} subscribers
+            </Text>
+          </View>
+
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 18,
+              fontWeight: 'bold',
+              padding: 10,
+            }}
+          >
+            Subscribe
           </Text>
         </View>
+
+        <Pressable
+          onPress={openComments}
+          style={{ padding: 10, marginVertical: 10 }}
+        >
+          <Text style={{ color: 'white' }}>Comments 33</Text>
+        </Pressable>
+
+      
+        <BottomSheetModal
+          ref={commentsSheetRef}
+          snapPoints={['70%']}
+          index={0}
+          backgroundComponent={({ style }) => (
+            <View style={[style, { backgroundColor: '#141414', padding: 10 }]}>
+              <VideoComments />
+            </View>
+          )}
+        ></BottomSheetModal>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
-const VideoScreenWithRecommendations = () => {
+
+const VideoScreenWithRecommendation = () => {
   return (
-    <SafeAreaView>
-      <FlatList
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        data={videos}
-        renderItem={({ item }) => <VideoListItem video={item} />}
-        ListHeaderComponent={VideoScreen}
-      />
+    <SafeAreaView style={{ backgroundColor: '#141414', flex: 1 }}>
+      <BottomSheetModalProvider>
+        <FlatList
+          data={videos}
+          renderItem={({ item }) => <VideoListItem video={item} />}
+          ListHeaderComponent={VideoScreen}
+        />
+      </BottomSheetModalProvider>
     </SafeAreaView>
   );
 };
 
-export default VideoScreenWithRecommendations;
+export default VideoScreenWithRecommendation;
